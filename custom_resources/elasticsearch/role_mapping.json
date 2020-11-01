@@ -1,0 +1,5 @@
+{
+  "backend_roles" : [ "{{iam_roles}}" ],
+  "hosts" : [],
+  "users" : []
+}

@@ -1,0 +1,18 @@
+{
+	"index_permissions":[
+		{
+			"index_patterns":["extrato-*"],
+			"allowed_actions":[
+				"create_index",
+				"crud"
+			],
+			"dls":"",
+			"fls":[],
+			"masked_fields":[]
+		}
+	],
+	"tenant_permissions":[],
+	"cluster_permissions":[
+		"indices:data/write/bulk"
+	]
+}

@@ -1,0 +1,148 @@
+{
+	"index_patterns": [
+		"extrato-*"
+	],
+	"aliases": {
+		"extrato": {
+      "is_write_index": true
+		}
+	},
+	"settings": {
+    "opendistro.index_state_management.policy_id":"ultrawarm_migration",
+    "opendistro.index_state_management.rollover_alias": "extrato",
+		"index": {
+			"number_of_shards": "30",
+			"number_of_replicas": "2",
+			"analysis": {
+				"filter": {
+					"portuguese_keywords": {
+						"keywords": [
+							"exemplo"
+						],
+						"type": "keyword_marker"
+					},
+					"portuguese_stemmer": {
+						"type": "stemmer",
+						"language": "light_portuguese"
+					},
+					"portuguese_stop": {
+						"type": "stop",
+						"stopwords": "_portuguese_"
+					}
+				},
+				"analyzer": {
+					"rebuilt_portuguese": {
+						"filter": [
+							"lowercase",
+							"portuguese_stop",
+							"portuguese_keywords",
+							"portuguese_stemmer"
+						],
+						"tokenizer": "standard"
+					}
+				}
+			}
+		}
+	},
+	"mappings": {
+		"properties": {
+			"@timestamp": {
+				"type": "date"
+			},
+			"codigoMoedaTransacao": {
+				"type": "keyword"
+			},
+			"codigoMotivoLancamento": {
+				"type": "integer"
+			},
+			"codigoTipoOperacao": {
+				"type": "keyword"
+			},
+			"conta": {
+				"properties": {
+					"codigoSufixoConta": {
+						"type": "integer"
+					},
+					"numeroUnicoConta": {
+						"type": "keyword"
+					}
+				}
+			},
+			"dataContabilLancamento": {
+				"type": "date"
+			},
+			"dataLancamento": {
+				"type": "date"
+			},
+			"indicadorLancamentoCompulsorioOcorrencia": {
+				"type": "boolean"
+			},
+			"metadados": {
+				"properties": {
+					"estabelecimento": {
+						"type": "text",
+						"fields": {
+							"keyword": {
+								"ignore_above": 256,
+								"type": "keyword"
+							}
+						}
+					},
+					"location": {
+						"type": "geo_point"
+					},
+					"nome": {
+						"type": "text",
+						"fields": {
+							"keyword": {
+								"ignore_above": 256,
+								"type": "keyword"
+							}
+						}
+					}
+				}
+			},
+			"numeroIdentificacaoLancamentoConta": {
+				"type": "text",
+				"fields": {
+					"keyword": {
+						"type": "keyword",
+						"ignore_above": 256
+					}
+				}
+			},
+			"siglaSistemaOrigem": {
+				"type": "text",
+				"fields": {
+					"keyword": {
+						"type": "keyword",
+						"ignore_above": 256
+					}
+				}
+			},
+			"tags": {
+				"type": "text",
+				"fields": {
+					"keyword": {
+						"type": "keyword",
+						"ignore_above": 256
+					}
+				}
+			},
+			"textoComplementoLancamento": {
+				"type": "text",
+				"search_analyzer": "rebuilt_portuguese",
+				"analyzer": "rebuilt_portuguese",
+				"fields": {
+					"keyword": {
+						"type": "keyword",
+						"ignore_above": 256
+					}
+				}
+			},
+			"valorLancamento": {
+				"type": "double"
+			}
+		}
+	}
+}

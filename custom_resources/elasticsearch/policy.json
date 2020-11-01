@@ -1,0 +1,37 @@
+{
+	/* PUT _opendistro/_ism/policies/ultrawarm_migration */
+	"policy": {
+		"description": "rollover index monthly and archive older one to ultrawarm",
+		"schema_version": 1,
+		"default_state": "active",
+		"states": [
+			{
+				"name": "active",
+				"actions": [
+					{
+						"rollover": {
+							"min_doc_count": 100000
+						}
+					}
+				],
+				"transitions": [
+					{
+						"state_name": "warm",
+						"conditions": {
+							"min_index_age": "1h"
+						}
+					}
+				]
+			},
+			{
+				"name": "warm",
+				"actions": [
+					{
+						"warm_migration": {}
+					}
+				],
+				"transitions": []
+			}
+		]
+	}
+}

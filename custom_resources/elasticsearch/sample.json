@@ -1,0 +1,25 @@
+{
+	"numeroIdentificacaoLancamentoConta": "76a0588e-b5ec-4a33-a890-25a94cb3cd85",
+	"codigoTipoOperacao": "TEF_CC_CC",
+	"valorLancamento": "0.7342075075242005",
+	"codigoMoedaTransacao": "986",
+	"siglaSistemaOrigem": "X0",
+	"codigoMotivoLancamento": "13943",
+	"textoComplementoLancamento": "Awesome Linen Bottle Coração",
+	"indicadorLancamentoCompulsorioOcorrencia": true,
+	"dataContabilLancamento": "2020-10-12T03:37:52.145649-03:00",
+	"dataLancamento": "2020-10-12T03:37:52.145649-03:00",
+	"conta": {
+		"numeroUnicoConta": "ca5065be-f8e5-32b8-b4e6-e9d0a2015de4",
+		"codigoSufixoConta": "100"
+	},
+	"metadados": {
+		"categoriaEstabelecimento": "Baby, Clothing & Kids",
+		"estabelecimento": "Stark, Turner and Okuneva",
+		"nome": "Elmer Rice",
+		"location": {
+			"lat": "74.650229",
+			"lon": "-113.82054"
+		}
+	}
+}

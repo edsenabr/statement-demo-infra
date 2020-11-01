@@ -1,0 +1,8 @@
+-e .
+aws-cdk.aws_ecr
+aws-cdk.aws_eks
+aws-cdk.aws_elasticsearch
+aws-cdk.aws_msk
+boto3
+pyOpenSSL
+pylint

@@ -1,0 +1,40 @@
+{
+  "availability-zones:account=837108680928:region=us-east-1": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ],
+  "vpc": {
+    "cidr": "10.0.0.0/20",
+    "client_cidr_block": "10.0.16.0/22"
+  },
+  "kafka": {
+    "instanceType": "kafka.t3.small",
+    "volumeSize": 50,
+    "number_of_broker_nodes": 3
+  },
+  "elastic": {
+    "instanceType": "t3.medium.elasticsearch",
+    "instanceCount": 3,
+    "master" :{
+      "dedicated": false,
+      "type": "t3.medium.elasticsearch",
+      "count": 3
+    },
+    "warm": {
+      "enabled": false,
+      "type": "ultrawarm1.medium.elasticsearch",
+      "count": 3
+    },
+    "shards": 30,
+    "replicas": 2
+  },
+  "kubernetes": {
+    "default_capacity": 1,
+    "default_capacity_instance": "t3.micro",
+    "namespaces" : ["data-ingestion", "load-generate", "load", "search"]
+  }
+}
