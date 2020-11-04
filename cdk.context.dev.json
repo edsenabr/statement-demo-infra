@@ -12,16 +12,16 @@
     "client_cidr_block": "10.0.16.0/22"
   },
   "kafka": {
-    "instanceType": "kafka.m5.4xlarge",
-    "volumeSize": 2000,
+    "instanceType": "kafka.t3.small",
+    "volumeSize": 50,
     "number_of_broker_nodes": 3
   },
   "elastic": {
-    "instanceType": "i3.4xlarge.elasticsearch",
-    "instanceCount": 15,
+    "instanceType": "t3.medium.elasticsearch",
+    "instanceCount": 3,
     "master" :{
-      "dedicated": true,
-      "type": "c5.2xlarge.elasticsearch",
+      "dedicated": false,
+      "type": "t3.medium.elasticsearch",
       "count": 3
     },
     "warm": {
@@ -33,8 +33,8 @@
     "replicas": 2
   },
   "kubernetes": {
-    "default_capacity": 7,
-    "default_capacity_instance": "m5.4xlarge",
+    "default_capacity": 1,
+    "default_capacity_instance": "t3.micro",
     "namespaces" : ["data-ingestion", "load-generate", "load", "search"]
   }
 }

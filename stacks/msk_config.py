@@ -18,7 +18,7 @@ class KafkaConfig(core.Stack):
 		pip.main([
 			"install", 
 			"--system",
-			"--target", "kafka/lib",
+			"--target", "custom_resources/kafka/lib",
 			"kafka-python"
 		])
 		arn = cr.AwsCustomResource(
