@@ -61,7 +61,9 @@ class ElastiSearchConfig(core.Stack):
 			properties={
 				"domain": elastic.domain.domain_name,
 				"secret": elastic.secret.secret_arn,
-				"roles": '","'.join([role.role_arn for role in roles])
+				"roles": [role.role_arn for role in roles],
+				"shards": self.node.try_get_context("elastic")['shards'],
+				"replicas": self.node.try_get_context("elastic")['replicas']
 			}
 		)
 

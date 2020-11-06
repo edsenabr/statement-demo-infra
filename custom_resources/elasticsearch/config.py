@@ -36,6 +36,8 @@ def handler(event, context):
 	secret = event['ResourceProperties']['secret']
 	domain = event['ResourceProperties']['domain']
 	roles = event['ResourceProperties']['roles']
+	shards = event['ResourceProperties']['shards']
+	replicas = event['ResourceProperties']['replicas']
 
 	password = secretsmanager.get_secret_value(
 			SecretId=secret
@@ -47,9 +49,22 @@ def handler(event, context):
 
 	config = ElasticsearchConfig(host, password)
 
-	print ("*** Will %s Elasticsearch config" % action)
+	print ("*** Will %s Elasticsearch config with secret={%s}, domain={%s}, roles={%s}, shards={%s}, replicas={%s} " % (action, secret, domain, roles, shards, replicas))
 
 	if (action in ['Create','Update']): 
+		roles = Path("role_mapping.json").read_text().replace(
+			"{{iam_roles}}",
+			'","'.join(roles)
+		) 
+
+		template = Path("template.json").read_text().replace(
+			"{{shards}}",
+			shards
+		).replace(
+			"{{replicas}}",
+			replicas
+		)
+
 		config.request(
 			"PUT",
 			"/_opendistro/_security/api/roles/extrato",
@@ -58,21 +73,52 @@ def handler(event, context):
 		config.request(
 			"PUT",
 			"/_opendistro/_security/api/rolesmapping/extrato",
-			Path("role_mapping.json").read_text().replace(
-				"{{iam_roles}}",
-				'","'.join(roles)
-			)
+			roles
 		)
 		config.request(
 			"PUT",
 			"/_template/extrato_template",
-			Path("template.json").read_text()
+			template
 		)
-		config.request(
-			"POST",
-			"extrato-2020-10/_doc",
-			Path("sample.json").read_text()
-		)
+
+		if action == 'Create': 
+			config.request(
+				"POST",
+				"extrato-2020-10/_doc",
+				Path("sample.json").read_text()
+			)
+
+		if action == 'Update': 
+			# old_shards = shards
+			# old_replicas = replicas
+			# try:
+			# 	old_shards = event['OldResourceProperties']['shards']
+			# 	old_replicas = event['OldResourceProperties']['replicas']
+			# except:
+			# 	old_shards = 0
+			# 	old_replicas = 0
+
+			indices = json.loads(
+				config.request(
+					"GET",
+					"/extrato-*/_settings/index.number_of_*"
+				)
+			)
+
+			for name in indices:
+				old_shards = indices[name]['settings']['index']['number_of_shards']
+				old_replicas = indices[name]['settings']['index']['number_of_replicas']
+				if old_shards != shards:
+					config.request(
+						"DELETE",
+						"/%s" % name
+					)
+				elif old_replicas != replicas:
+					config.request(
+						"PUT",
+						"/%s/_settings" % name,
+						'{"index":{"number_of_replicas":"%s"} }' % replicas
+					)
 
 	elif action == 'Delete':
 		config.request(

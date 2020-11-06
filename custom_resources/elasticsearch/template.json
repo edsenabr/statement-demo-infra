@@ -11,8 +11,8 @@
     "opendistro.index_state_management.policy_id":"ultrawarm_migration",
     "opendistro.index_state_management.rollover_alias": "extrato",
 		"index": {
-			"number_of_shards": "30",
-			"number_of_replicas": "2",
+			"number_of_shards": "{{shards}}",
+			"number_of_replicas": "{{replicas}}",
 			"analysis": {
 				"filter": {
 					"portuguese_keywords": {
