@@ -22,9 +22,9 @@ class UltraWarm(core.Stack):
 				parameters={
 					"DomainName": domain.domain_name,
 					"ElasticsearchClusterConfig": {
-						"WarmCount": self.node.try_get_context("elastic")["WarmCount"],
+						"WarmCount": self.node.try_get_context("elastic")["warm"]["count"],
 						"WarmEnabled": True,
-						"WarmType": self.node.try_get_context("elastic")["WarmType"]
+						"WarmType": self.node.try_get_context("elastic")["warm"]["type"]
 					}
 				},
 			),

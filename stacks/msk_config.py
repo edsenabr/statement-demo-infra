@@ -110,7 +110,7 @@ class KafkaConfig(core.Stack):
 			properties={
 				"bootstrap": bootstraps.get_response_field('BootstrapBrokerStringTls'),
 				"topic": "generate",
-				"partitions": 150,
+				"partitions": 200,
 				"replicas": 1
 			}
 		)

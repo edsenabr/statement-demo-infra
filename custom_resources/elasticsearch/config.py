@@ -35,6 +35,7 @@ def handler(event, context):
 	action = event['RequestType']
 	secret = event['ResourceProperties']['secret']
 	domain = event['ResourceProperties']['domain']
+	user = event['ResourceProperties']['user']
 	roles = event['ResourceProperties']['roles']
 	shards = event['ResourceProperties']['shards']
 	replicas = event['ResourceProperties']['replicas']
@@ -49,12 +50,15 @@ def handler(event, context):
 
 	config = ElasticsearchConfig(host, password)
 
-	print ("*** Will %s Elasticsearch config with secret={%s}, domain={%s}, roles={%s}, shards={%s}, replicas={%s} " % (action, secret, domain, roles, shards, replicas))
+	print ("*** Will %s Elasticsearch config with secret={%s}, domain={%s}, roles={%s}, shards={%s}, replicas={%s}, user={%s} " % (action, secret, domain, roles, shards, replicas, user))
 
 	if (action in ['Create','Update']): 
 		roles = Path("role_mapping.json").read_text().replace(
 			"{{iam_roles}}",
 			'","'.join(roles)
+		).replace(
+			"{{iam_user}}",
+			user
 		) 
 
 		template = Path("template.json").read_text().replace(

@@ -63,6 +63,7 @@ class ElastiSearchConfig(core.Stack):
 				"secret": elastic.secret.secret_arn,
 				"roles": [role.role_arn for role in roles],
 				"shards": self.node.try_get_context("elastic")['shards'],
+				"user": boto3.client('sts').get_caller_identity().get('Arn'),
 				"replicas": self.node.try_get_context("elastic")['replicas']
 			}
 		)
