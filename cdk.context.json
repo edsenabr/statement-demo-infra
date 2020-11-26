@@ -8,33 +8,33 @@
     "us-east-1f"
   ],
   "vpc": {
-    "cidr": "10.0.0.0/20",
-    "client_cidr_block": "10.0.16.0/22"
+    "cidr": "10.0.0.0/16",
+    "client_cidr_block": "10.1.0.0/22"
   },
   "kafka": {
-    "instanceType": "kafka.t3.small",
-    "volumeSize": 50,
+    "instanceType": "kafka.m5.4xlarge",
+    "volumeSize": 2000,
     "number_of_broker_nodes": 3
   },
   "elastic": {
-    "instanceType": "t3.medium.elasticsearch",
-    "instanceCount": 3,
+    "instanceType": "i3.2xlarge.elasticsearch",
+    "instanceCount": 6,
     "master" :{
-      "dedicated": false,
-      "type": "t3.medium.elasticsearch",
+      "dedicated": true,
+      "type": "c5.large.elasticsearch",
       "count": 3
     },
     "warm": {
-      "enabled": false,
+      "enabled": true,
       "type": "ultrawarm1.medium.elasticsearch",
       "count": 3
     },
-    "shards": 30,
+    "shards": 3,
     "replicas": 2
   },
   "kubernetes": {
-    "default_capacity": 1,
-    "default_capacity_instance": "t3.micro",
+    "default_capacity": 2,
+    "default_capacity_instance": "m5.4xlarge",
     "namespaces" : ["data-ingestion", "load-generate", "load", "search"]
   }
 }
