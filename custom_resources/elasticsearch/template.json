@@ -49,35 +49,35 @@
 			"@timestamp": {
 				"type": "date"
 			},
-			"codigoMoedaTransacao": {
+			"mt": {
 				"type": "keyword"
 			},
-			"codigoMotivoLancamento": {
+			"cm": {
 				"type": "integer"
 			},
-			"codigoTipoOperacao": {
+			"to": {
 				"type": "keyword"
 			},
-			"conta": {
+			"ct": {
 				"properties": {
-					"codigoSufixoConta": {
+					"cs": {
 						"type": "integer"
 					},
-					"numeroUnicoConta": {
+					"nu": {
 						"type": "keyword"
 					}
 				}
 			},
-			"dataContabilLancamento": {
+			"dc": {
 				"type": "date"
 			},
-			"dataLancamento": {
+			"dt": {
 				"type": "date"
 			},
-			"indicadorLancamentoCompulsorioOcorrencia": {
+			"ic": {
 				"type": "boolean"
 			},
-			"metadados": {
+			"md": {
 				"properties": {
 					"estabelecimento": {
 						"type": "text",
@@ -102,7 +102,7 @@
 					}
 				}
 			},
-			"numeroIdentificacaoLancamentoConta": {
+			"id": {
 				"type": "text",
 				"fields": {
 					"keyword": {
@@ -111,7 +111,7 @@
 					}
 				}
 			},
-			"siglaSistemaOrigem": {
+			"so": {
 				"type": "text",
 				"fields": {
 					"keyword": {
@@ -129,7 +129,7 @@
 					}
 				}
 			},
-			"textoComplementoLancamento": {
+			"tc": {
 				"type": "text",
 				"search_analyzer": "rebuilt_portuguese",
 				"analyzer": "rebuilt_portuguese",
@@ -140,7 +140,7 @@
 					}
 				}
 			},
-			"valorLancamento": {
+			"vl": {
 				"type": "double"
 			}
 		}
