@@ -1,0 +1,4 @@
+cdk.out
+env
+custom_resources/kafka/lib
+stacks/__pycache__
