@@ -82,6 +82,7 @@ def create_cert(name: str, ca: crypto.X509) -> Certificate :
 	key_pem = crypto.dump_privatekey(crypto.FILETYPE_PEM, cert.key)
 	save_file(name, "crt", cert_pem)
 	save_file(name, "key", key_pem)
+	return cert
 	
 
 	# return acm.import_certificate(

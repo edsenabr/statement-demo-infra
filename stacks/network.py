@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from .certs import VPNCertificates
+from certs import VPNCertificates
 from aws_cdk import (
     aws_ec2 as ec2,
     core
