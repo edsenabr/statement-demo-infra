@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from .certs import MTLSCertificates
+from .certs import VPNCertificates
 from aws_cdk import (
     aws_ec2 as ec2,
     core
@@ -17,7 +17,7 @@ class Network(core.Stack):
       nat_gateways=1
     )
 
-    certs = MTLSCertificates()
+    certs = VPNCertificates()
 
     vpn = ec2.CfnClientVpnEndpoint(
       self, 

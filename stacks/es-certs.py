@@ -5,7 +5,7 @@ from OpenSSL import crypto
 acm = boto3.client('acm')
 
 
-class VPNCertificates:
+class ESCertificates:
 	server=''
 	client=''
 	def __init__(self) -> None:
